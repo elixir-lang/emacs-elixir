@@ -183,6 +183,7 @@
                                  (zero-or-more (any "A-Z" "a-z" "_" "0-9"))))
                            (optional (or "!" "?"))
                            symbol-end))
+      (arrows . ,(rx (or "->" "<-" "=>" "|>")))
       (pseudo-var . ,(rx symbol-start
                          (optional (or "%" "&"))
                          (or "_" "__MODULE__" "__DIR__" "__ENV__" "__CALLER__"
@@ -435,6 +436,10 @@ is used to limit the scan."
     ;; Pseudovariables
     (,(elixir-rx (group pseudo-var))
      1 font-lock-constant-face)
+
+    ;; Arrows
+    (,(elixir-rx (group arrows))
+     1 font-lock-keyword-face)
 
     ;; Code points
     (,(elixir-rx (group code-point))
